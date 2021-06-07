@@ -1,0 +1,21 @@
+module.exports = {
+	COMPANY_ID: 72,
+    PLC_TYPE: 15,
+    TABLE_MEETING_ROOM: 'MeetingRoom',
+    TABLE_MEETING_CAMPUS: 'MeetingCampus',
+    TABLE_MEETING_BUILDING: 'MeetingBuilding',
+    TABLE_MEETING_FLOOR: 'MeetingFloor',
+    TABLE_PLC_PROFILES_MEETING_ROOM: 'PlcProfilesMeetingRoom',
+    TABLE_PLC_PROFILES: 'PlcProfiles',
+    TABLE_PLAYER: 'Player',
+    TABLE_PLC_SCREENS: 'PlcScreens',
+    TABLE_PLC_SCREEN_GROUPS: 'PlcScreenGroups',
+    TABLE_PLC_PARAMS: 'PlcParams',
+    TABLE_PLC_FORMULAS: 'PlcFormulas',
+    TABLE_PLC_FORMULA_GROUPS: 'PlcFormulaGroups',
+    TABLE_PLC_TAGS: 'PlcTags',
+    TABLE_PLC_TAG_GROUPS: 'PlcTagGroups',
+    TABLE_PLC_SENSORS: 'PlcSensors',
+    TABLE_PLC_SENSOR_GROUPS: 'PlcSensorGroups',
+    TABLE_DEVICES: 'Player'
+}
