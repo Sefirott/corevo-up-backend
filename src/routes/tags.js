@@ -92,6 +92,28 @@ router.post("/", async (req, res, next) => {
     }
 })
 
+router.post("/group", async (req, res, next) => {
+    try {
+        const {
+            Name
+        } = req.body
+
+        const result = await db.query(
+            `INSERT INTO ${TABLE_PLC_TAG_GROUPS} (Name)
+             VALUES ('${Name}')`
+        );
+        res.json({
+            success: true,
+            result,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error,
+        });
+    }
+})
+
 router.put("/", async (req, res, next) => {
     try {
         const {
