@@ -18,7 +18,7 @@ const config = {
     server: 'localhost',
     port: 5500,
     user: 'publicuser',
-    password: '347!dfm!fdm!437',
+    password: '347!dfm!fdm!437+1',
     database: 'UNISOFT2021'
 };
 
