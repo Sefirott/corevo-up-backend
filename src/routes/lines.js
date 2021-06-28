@@ -11,6 +11,7 @@ const {
     TABLE_PLC_PROFILES,
     TABLE_PLC_PROFILES_MEETING_ROOM
 } = require("@constants");
+
 const insertLine = (value) => {
     const {
         Name,
@@ -38,6 +39,7 @@ const insertLine = (value) => {
         `)
     })
 }
+
 router.get("/", async (req, res, next) => {
     try {
         const {
@@ -57,7 +59,7 @@ router.get("/", async (req, res, next) => {
                        STRING_AGG(P.ID, ', ')         AS PlayerID,
                        STRING_AGG(P.PlayerName, ', ') AS PlayerName,
                        0                              AS ConnectionStatus
-                FROM MeetingRoom AS MR
+                FROM ${TABLE_MEETING_ROOM} AS MR
                          INNER JOIN ${TABLE_MEETING_FLOOR} AS MF ON MF.ID = MR.FloorID
                     AND MF.Status = 1
                          INNER JOIN ${TABLE_MEETING_BUILDING} AS MB ON MB.ID = MF.BuildingID
@@ -138,5 +140,32 @@ router.put("/", async (req, res, next) => {
         });
     }
 })
+
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const {
+            recordset: result
+        } = await db.query(
+            `
+             DELETE
+             FROM ${TABLE_MEETING_ROOM}
+             WHERE ID = ${id}
+             `
+        );
+
+        await db.query(`DELETE ${TABLE_PLC_PROFILES_MEETING_ROOM} WHERE MeetingRoomID = ${id}`);
+
+        res.json({
+            success: true,
+            result,
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error,
+        });
+    }
+});
 
 module.exports = router;
