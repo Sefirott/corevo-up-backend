@@ -114,6 +114,35 @@ router.post("/group", async (req, res, next) => {
     }
 })
 
+router.delete("/group/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const {
+            recordset: result
+        } = await db.query(
+            `
+             DELETE
+             FROM ${TABLE_PLC_TAG_GROUPS}
+             WHERE ID = ${id}
+             `
+        );
+
+        /*ALTER TABLE [dbo].[PlcTags] ADD FOREIGN KEY ([GroupID]) REFERENCES [dbo].[PlcTagGroups] ([ID]) ON DELETE SET NULL ON UPDATE CASCADE
+        GO*/
+        await db.query(`DELETE FROM ${TABLE_PLC_TAGS} WHERE GroupID = ${id}`);
+
+        res.json({
+            success: true,
+            result,
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error,
+        });
+    }
+});
+
 router.put("/", async (req, res, next) => {
     try {
         const {

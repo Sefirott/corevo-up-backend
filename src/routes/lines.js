@@ -154,7 +154,7 @@ router.delete("/:id", async (req, res, next) => {
              `
         );
 
-        await db.query(`DELETE ${TABLE_PLC_PROFILES_MEETING_ROOM} WHERE MeetingRoomID = ${id}`);
+        await db.query(`DELETE FROM ${TABLE_PLC_PROFILES_MEETING_ROOM} WHERE MeetingRoomID = ${id}`);
 
         res.json({
             success: true,
