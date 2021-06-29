@@ -92,6 +92,31 @@ router.post("/", async (req, res, next) => {
     }
 })
 
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const {
+            recordset: result
+        } = await db.query(
+            `
+             DELETE
+             FROM ${TABLE_PLC_TAGS}
+             WHERE ID = ${id}
+             `
+        );
+
+        res.json({
+            success: true,
+            result,
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error,
+        });
+    }
+});
+
 router.post("/group", async (req, res, next) => {
     try {
         const {
