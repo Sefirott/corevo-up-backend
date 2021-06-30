@@ -14,7 +14,6 @@ const insertCampus = (value) => {
 router.get("/", async (req, res, next) => {
     try {
         const result = await db.query(`SELECT * FROM ${TABLE_MEETING_CAMPUS} where Status = 1`);
-        // console.log(result);
         res.json({
             success: true,
             result,

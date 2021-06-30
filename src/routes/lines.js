@@ -47,7 +47,7 @@ router.get("/", async (req, res, next) => {
         } = await db.query(
             `
                 SELECT MR.ID,
-                       MR.Name                        AS LineName,
+                       MR.Name                        AS Name,
                        MF.ID                          AS FloorID,
                        MF.Name                        AS FloorName,
                        MB.ID                          AS BuildingID,
@@ -107,20 +107,21 @@ router.post("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.put("/", async (req, res, next) => {
     try {
 
         const {
             ID,
+            Name,
             Device,
             Floor,
             ProfileID
         } = req.body;
 
         const result = await db.query(
-            `UPDATE ${TABLE_MEETING_ROOM} SET PlayerID = '${Device.join(',')}', FloorID = ${Floor} WHERE ID = ${ID}`
+            `UPDATE ${TABLE_MEETING_ROOM} SET Name = '${Name}', PlayerID = '${Device.join(',')}', FloorID = ${Floor} WHERE ID = ${ID}`
         );
 
         await db.query(`DELETE ${TABLE_PLC_PROFILES_MEETING_ROOM} WHERE MeetingRoomID = ${ID}`);
@@ -139,7 +140,7 @@ router.put("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.delete("/:id", async (req, res, next) => {
     try {

@@ -19,7 +19,6 @@ router.get("/:id", async (req, res, next) => {
     try {
         const id = req.params.id;
         const result = await db.query(`SELECT * FROM ${TABLE_MEETING_BUILDING} WHERE Status = 1 AND CampusID = ${id}`);
-        // console.log(result);
         res.json({
             success: true,
             result,
@@ -35,7 +34,6 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     try {
         const result = await insertBuilding(req.body);
-        // console.log(result);
         res.json({
             success: true,
             result,

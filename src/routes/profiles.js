@@ -108,7 +108,7 @@ router.get("/byDevice/:id", async (req, res, next) => {
                 SELECT
                        P.ID             AS DeviceID,
                        P.PlayerName     as DeviceName,
-					   MR.Name as LineName,
+					   MR.Name as Name,
                        PP.*
                 FROM MeetingRoom MR
                          INNER JOIN ${TABLE_PLAYER} AS P ON CONCAT(',', MR.PlayerID, ',') LIKE CONCAT('%,', P.ID, ',%')

@@ -15,7 +15,6 @@ const insertFloor = (value) => {
     `)
 }
 
-/* GET building listing. */
 router.get("/:id", async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -35,7 +34,6 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     try {
         const result = await insertFloor(req.body);
-        // console.log(result);
         res.json({
             success: true,
             result,
