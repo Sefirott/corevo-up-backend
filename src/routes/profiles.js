@@ -62,7 +62,6 @@ const updateProfile = (value) => {
     );
 }
 
-
 router.get("/", async (req, res, next) => {
     try {
         const result = await db.query(
@@ -99,7 +98,6 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-
 router.get("/byDevice/:id", async (req, res, next) => {
     try {
         const id = req.params.id
@@ -132,7 +130,6 @@ router.get("/byDevice/:id", async (req, res, next) => {
     }
 });
 
-
 router.post("/", async (req, res, next) => {
     try {
         const result = await insertProfile(req.body);
@@ -164,5 +161,32 @@ router.put("/", async (req, res, next) => {
         });
     }
 })
+
+router.delete("/:id", async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const {
+            recordset: result
+        } = await db.query(
+            `
+             DELETE
+             FROM ${TABLE_PLC_PROFILES}
+             WHERE ID = ${id}
+             `
+        );
+
+        await db.query(`DELETE FROM ${TABLE_PLC_PROFILES_MEETING_ROOM} WHERE ProfileID = ${id}`);
+
+        res.json({
+            success: true,
+            result,
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error,
+        });
+    }
+});
 
 module.exports = router;
