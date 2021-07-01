@@ -40,7 +40,7 @@ router.post("/byGroups", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.get("/groups/:id", async (req, res, next) => {
     try {
@@ -90,7 +90,7 @@ router.post("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.delete("/:id", async (req, res, next) => {
     try {
@@ -137,7 +137,7 @@ router.post("/group", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.delete("/group/:id", async (req, res, next) => {
     try {
@@ -207,6 +207,6 @@ router.put("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 module.exports = router;

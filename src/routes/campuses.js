@@ -26,7 +26,6 @@ router.get("/", async (req, res, next) => {
     }
 });
 
-
 router.post("/", async (req, res, next) => {
     try {
         const result = await insertCampus(req.body);

@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("@db");
-
 const {TABLE_DEVICES, PLC_TYPE, COMPANY_ID} = require("@constants");
-
 
 const insertDevice = (value) => {
     const {
@@ -46,6 +44,6 @@ router.post("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 module.exports = router;

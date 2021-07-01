@@ -68,7 +68,7 @@ router.post("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.put("/", async (req, res, next) => {
     try {
@@ -103,7 +103,7 @@ router.put("/", async (req, res, next) => {
             error,
         });
     }
-})
+});
 
 router.delete("/:id", async (req, res, next) => {
     try {

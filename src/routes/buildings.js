@@ -3,7 +3,6 @@ const router = express.Router();
 const db = require("@db");
 const {TABLE_MEETING_BUILDING, PLC_TYPE} = require("@constants");
 
-
 const insertBuilding = (value) => {
     const {
         Name,
