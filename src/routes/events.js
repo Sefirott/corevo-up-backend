@@ -29,8 +29,8 @@ const insertEvent = (value) => {
                 '${RealValue}', 
                 '${Operator}', 
                 '${Event}',
-                '${+IsFormula}'
-                '${+FormulaGroupID}'
+                '${+IsFormula}',
+                '${+FormulaGroupID}',
                 '${+TagGroupID}'
                 )
         `
