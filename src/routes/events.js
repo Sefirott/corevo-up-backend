@@ -5,6 +5,10 @@ const db = require("@db");
 const {
     TABLE_PLC_EVENTS,
     TABLE_PLC_SCREENS_PLC_EVENTS,
+    TABLE_PLC_FORMULAS,
+    TABLE_PLC_FORMULA_GROUPS,
+    TABLE_PLC_TAGS,
+    TABLE_PLC_TAG_GROUPS,
 } = require("@constants");
 
 const insertEvent = (value) => {
@@ -72,9 +76,13 @@ router.get("/byScreen/:id", async (req, res, next) => {
         const id = req.params.id;
         const result = await db.query(
             `
-                SELECT PE.*
+                SELECT PE.*, PTG.Name AS TagGroupName, PT.Name AS TagName, PFG.Name AS FormulaGroupName, PF.Name AS FormulaName
                 FROM ${TABLE_PLC_EVENTS} PE
                          INNER JOIN ${TABLE_PLC_SCREENS_PLC_EVENTS} PSPE ON PE.ID = PSPE.EventID
+                         LEFT JOIN ${TABLE_PLC_TAG_GROUPS} PTG ON PE.TagGroupID = PTG.ID
+                         LEFT JOIN ${TABLE_PLC_TAGS} PT ON PT.GroupID = PTG.ID AND PT.ID = PE.TagID
+                         LEFT JOIN ${TABLE_PLC_FORMULA_GROUPS} PFG ON PE.FormulaGroupID = PFG.ID
+                         LEFT JOIN ${TABLE_PLC_FORMULAS} PF ON PF.GroupID = PFG.ID AND PF.ID = PE.FormulaID
                 WHERE PSPE.ScreenGroupID = ${id}
              `
         );
