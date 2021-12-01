@@ -4,6 +4,7 @@ const db = require("@db");
 const {
     TABLE_MEETING_CAMPUS,
     PLC_TYPE,
+    C_USER,
     TABLE_MEETING_BUILDING,
     TABLE_MEETING_ROOM,
     TABLE_MEETING_FLOOR,
@@ -22,7 +23,7 @@ const insertLine = (value) => {
     return db.query(`
         INSERT INTO ${TABLE_MEETING_ROOM} (Name, PlayerID, MeetingRoomTypeID, FloorID, CUser, CDate, Status)
         OUTPUT Inserted.ID
-        VALUES ('${Name}', '${Device.join(',')}', ${PLC_TYPE}, ${Floor}, 1, CURRENT_TIMESTAMP, 1);
+        VALUES ('${Name}', '${Device.join(',')}', ${PLC_TYPE}, ${Floor}, ${C_USER}, CURRENT_TIMESTAMP, 1);
     `).then((result) => {
         const {
             recordset: [{
@@ -80,6 +81,44 @@ router.get("/", async (req, res, next) => {
                          MC.Name,
                          PP.ID,
                          PP.Name
+            `
+        );
+        res.json({
+            success: true,
+            result,
+        });
+    } catch (error) {
+        res.json({
+            success: false,
+            error,
+        });
+    }
+});
+
+router.get("/:lineName", async (req, res, next) => {
+    try {
+        const lineName = req.params.lineName;
+        const {
+            recordset: result
+        } = await db.query(
+            `
+                SELECT MR.ID,
+                       MR.Name                        AS Name,
+                       MF.ID                          AS FloorID,
+                       MF.Name                        AS FloorName,
+                       MB.ID                          AS BuildingID,
+                       MB.Name                        AS BuildingName,
+                       MC.ID                          AS CampusID,
+                       MC.Name                        AS CampusName,
+                       MR.PlcJson                     AS PlcJson
+                FROM ${TABLE_MEETING_ROOM} AS MR
+                         INNER JOIN ${TABLE_MEETING_FLOOR} AS MF ON MF.ID = MR.FloorID
+                    AND MF.Status = 1
+                         INNER JOIN ${TABLE_MEETING_BUILDING} AS MB ON MB.ID = MF.BuildingID
+                    AND MB.Status = 1
+                         INNER JOIN ${TABLE_MEETING_CAMPUS} AS MC ON MC.ID = MB.CampusID
+                    AND MC.Status = 1
+                WHERE MR.MeetingRoomTypeID = ${PLC_TYPE} AND MR.Name = '${lineName}'
             `
         );
         res.json({
