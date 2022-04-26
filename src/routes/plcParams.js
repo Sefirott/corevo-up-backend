@@ -56,7 +56,7 @@ router.post("/", async (req, res, next) => {
 
         const result = await db.query(
             `INSERT INTO ${TABLE_PLC_PARAMS} (Marka, Model, IpAddress, PortType, PortNum)
-             VALUES ('${Marka}', '${Model}', '${IpAddress}', '${PortType}', ${PortNum})`
+             VALUES ('${Marka}', '${Model}', '${IpAddress}', '${PortType}', '${PortNum}')`
         );
         res.json({
             success: true,
@@ -88,7 +88,7 @@ router.put("/", async (req, res, next) => {
             Model = '${Model}',
             IpAddress = '${IpAddress}',
             PortType = '${PortType}',
-            PortNum = ${PortNum} 
+            PortNum = '${PortNum}' 
             WHERE
             ID = ${ID}
             `
