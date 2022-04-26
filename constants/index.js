@@ -1,9 +1,9 @@
 module.exports = {
 	COMPANY_ID: 72,
     PLC_TYPE: 15,
-    FLOOR_ID: 1,
-    BUILDING_ID: 1,
-    CAMPUS_ID: 1,
+    FLOOR_ID: 1000000,
+    BUILDING_ID: 1000000,
+    CAMPUS_ID: 1000000,
     C_USER: 1,
     TABLE_MEETING_ROOM: 'MeetingRoom',
     TABLE_MEETING_CAMPUS: 'MeetingCampus',

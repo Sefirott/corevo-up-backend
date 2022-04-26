@@ -14,7 +14,20 @@ const {
 
 const getDatasFromApiLink = (Link) => {
     try {
-        return axios.get(Link)
+		let data = JSON.stringify({
+		  "FactoryName": "HIJYEN"
+		});
+		let config = {
+		  method: 'post',
+		  url: Link, // http://10.5.2.33:8080/Thingworx/Things/DMOM_JSONData_Thing/Services/GetAllLineInfo?JsonBody=FactoryName:HIJYEN
+		  headers: { 
+			'Accept': 'application/json', 
+			'Content-Type': 'application/json', 
+			'appKey': '4da2a239-beeb-4659-8a9d-9795a0a6a063', 
+		  },
+		  data : data
+		};
+        return axios(config)
     } catch (error) {
         console.error(error)
     }
