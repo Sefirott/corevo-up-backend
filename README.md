@@ -1,3 +1,3 @@
 # corevo-up-backend
 
-Node.js backend for Corevo-Up-CMS. 
+Back-End for Corevo-Up-CMS. 
